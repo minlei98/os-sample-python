@@ -1,0 +1,47 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+{% block extrastyle %}
+{{ block.super }}
+
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}">
+{% load static %}
+<script type="text/javascript" src="{% static "/fusion/js/fusioncharts.js" %}"></script>
+<script type="text/javascript" src="{% static "/fusion/js/themes/fusioncharts.theme.fusion.js" %}"></script>
+
+{% endblock %}
+
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+
+{% block content %}
+
+
+
+<table>
+
+    <tr>
+        <td><div id="chart-1">{{ output|safe }}</div></td> 
+        <td><div id="chart-2">{{ output1|safe }}</div></td>
+    </tr>
+</table>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+{% block sidebar %}
+{% endblock %}

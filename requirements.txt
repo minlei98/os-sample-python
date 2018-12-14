@@ -1,2 +1,12 @@
+certifi==2018.8.24
+chardet==3.0.4
+Django==2.1.1
+djangorestframework==3.8.2
+idna==2.7
+psycopg2==2.7.5
+pytz==2018.5
+requests==2.19.1
+ruamel.yaml==0.15.66
+urllib3==1.23
 gunicorn
-Flask
+

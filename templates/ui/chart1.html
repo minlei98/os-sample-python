@@ -1,0 +1,230 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+
+
+{{ block.super }}
+
+
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}">
+{% load static %}
+<script type="text/javascript" src="{% static "/fusion/js/fusioncharts.js" %}"></script>
+<script type="text/javascript" src="{% static "/fusion/js/themes/fusioncharts.theme.fusion.js" %}"></script>
+
+{% endblock %}
+
+
+
+{% block coltype %}
+colMS
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="{% url 'admin:index' %}">{% trans 'Home >> ' %}</a>
+    <a href="{% url 'bar_stack_chart1' %}">{% trans 'Stack Bar Chart' %}</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="grid-container">
+
+  <div class="header_item1">
+  <hr>
+  
+       {% if user.is_authenticated %}
+     
+     
+        <form  class="form-inline" action="" id="usrform" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" autocomplete="off" novalidate>
+          
+         {% csrf_token %}
+		 <table id="table1">
+            <thead>
+                <tr class="info">
+                    <th class="text-center">Test Definition Name:</th>
+                    <th class="text-center">Test Type:</th>
+                    <th class="text-center">Test State:</th>
+                    <th class="text-center">Start Date:</th>
+                    <th class="text-center">End Date:</th>
+                    
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="tooltip">
+                        <input type="text" form="usrform" name="rname" id="rname" placeholder="Enter Recipe Name", value="{{ data.rname }}">
+                        <span class="tooltiptext">Enter the exact name of the test definition.</span>
+                        </div>
+                      
+                    </td>
+                    <td>
+                        <div class="tooltip">
+						<select name = "rtype" form="usrform"  id="rtype">
+							{% for item in data.readytype %}
+		            			<option value="{{ item }}" {% if item == data.rtype %}selected="selected"{% endif %}>{{ item }}</option>
+		        			{% endfor %}
+						</select> 
+						<span class="tooltiptext">Select a test type</span>
+                    </td>                    
+                    <td>
+                        <div class="tooltip">
+						<select name = "rstate" form="usrform"  id="rstate">
+							{% for item in data.readystate %}
+		            			<option value="{{ item }}" {% if item == data.rstate %}selected="selected"{% endif %}>{{ item }}</option>
+		        			{% endfor %}
+						</select> 
+						<span class="tooltiptext">Select ready state Production or Development</span>
+                    </td>
+                    
+                    
+	            <td>
+                    <div class="tooltip">
+                    <input type="date" form="usrform" name="stime" id="stime" value="{{ data.stime }}"">
+                    <span class="tooltiptext">GTE</span>
+	                </div>
+	            </td>     
+                
+	            <td>
+                    <div class="tooltip">
+                    <input type="date" form="usrform" name="etime" id="etime" value="{{ data.etime }}">
+                    <span class="tooltiptext">LTE</span>
+	                </div>
+	            </td>                    
+                    
+                    
+                    
+                    <td>
+                    <button type="submit" class="btn btn-default" >Search</button>
+                    <button type="submit" class="btn btn-default" onclick="RestFormFunction(document.forms[0])">Clear</button>
+                    </td>
+                    
+                    
+                </tr>
+                
+                
+        </tbody>
+        </table>
+        </form>
+   <hr>
+  </div>
+  
+  
+  
+  <div class="main_item3">
+        
+  		 <table id="table1">
+         <tbody>
+            <tr>        
+		        <td><div id="chart-1">{{ output1|safe }}</div></td>
+		        <td><div id="chart-2">{{ output2|safe }}</div></td>
+            </tr>
+        </tbody>
+        </table>           
+        
+
+     {% endif %}
+     
+  </div>     
+     
+
+  <div class="footer_item5"><hr></div>
+  
+</div>
+
+
+<script type="text/javascript">
+
+function RestFormFunction(oForm) {
+    frmElement = oForm.elements["rname"];
+    frmElement.value = "";
+    frmElement = oForm.elements["rtype"];
+    frmElement.value = "";
+    frmElement = oForm.elements["rstate"];
+    frmElement.value = "";
+    
+}
+
+</script>
+
+
+
+<style>
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: gray;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.header_item1 { grid-area: header; }
+.menu_item2 { grid-area: menu; }
+.main_item3 { grid-area: main; }
+.right_item4 { grid-area: right; }
+.footer_item5 { grid-area: footer; }
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header'
+    'main'
+    'footer';
+  grid-gap: 1px;
+  xbackground-color: #2196F3;
+  padding: 1px;
+  xwidth: 100vw;
+  xheight: 100vh;
+  xjustify-items: center;
+  xalign-items: center;
+}
+
+.grid-container > div {
+  xbackground-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 1px 0;
+  font-size: 30px;
+}
+
+</style>
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+{% block sidebar %}
+{% endblock %}

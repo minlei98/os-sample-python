@@ -1,9 +1,17 @@
-from flask import Flask
-application = Flask(__name__)
+"""
+WSGI config for mpqe project.
 
-@application.route("/")
-def hello():
-    return "Hello World!"
+It exposes the WSGI callable as a module-level variable named ``application``.
 
-if __name__ == "__main__":
-    application.run()
+For more information on this file, see
+https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/
+"""
+
+import os
+
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mpqe.settings')
+
+application = get_wsgi_application()
+

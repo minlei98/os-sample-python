@@ -1,0 +1,17 @@
+
+<!-- Filename: app_name/templates/index.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MPQE-Runs</title>
+    {% load static %}
+    <script type="text/javascript" src="{% static "/fusion/js/fusioncharts.js" %}"></script>
+    <script type="text/javascript" src="{% static "/fusion/js/themes/fusioncharts.theme.fusion.js" %}"></script>
+</head>
+
+<body>
+    <div id="myFirstchart-container">{{ output|safe }}</div>
+</body>
+
+</html>
